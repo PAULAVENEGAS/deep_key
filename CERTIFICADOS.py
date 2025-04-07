@@ -62,16 +62,15 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
  
-# Configuración de credenciales de Azure AD
-CLIENT_ID = "25e0fc91-49b5-4f49-a23b-4fb90876b233"
-TENANT_ID = "8090ce1a-6c7f-4880-aa90-816b750cd408"
-CLIENT_SECRET = "KdV8Q~3zEPCvY1Ig6E8I.GCqGRZpki2fSlG.AcIo"
+CLIENT_ID = os.getenv("CLIENT_ID")
+TENANT_ID = os.getenv("TENANT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
  
 AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
 SCOPES = ["https://outlook.office365.com/.default"]
  
 # Configuración del correo
-EMAIL = "customerservice@intruckscorp.com"
+EMAIL = os.getenv("EMAIL")
 IMAP_SERVER = "outlook.office365.com"
 IMAP_PORT = 993
  
