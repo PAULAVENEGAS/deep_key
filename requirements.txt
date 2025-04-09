@@ -1,0 +1,29 @@
+# Core utilities
+requests
+python-dotenv
+pandas
+openai
+
+# Fuzzy matching
+fuzzywuzzy
+python-Levenshtein  # Acelera fuzzywuzzy (opcional pero recomendado)
+
+# HTML parsing
+beautifulsoup4
+
+# Email handling
+imaplib2  # Mejor soporte que imaplib nativo
+email-validator
+
+# JWT handling & Auth
+msal
+pyjwt
+
+# PDF & OCR
+PyPDF2
+pdfminer.six
+pytesseract
+Pillow
+
+# Logging (nativo, no se instala)
+# datetime, os, re, sys, typing: ya vienen con Python estándar

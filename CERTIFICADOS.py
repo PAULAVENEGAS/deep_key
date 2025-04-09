@@ -1,15 +1,14 @@
 import re
 from fuzzywuzzy import fuzz
 import sys  # Importar el módulo sys para finalizar la ejecución
-from transformers import pipeline
 from typing import Optional, Dict, Any, Union
 import requests
 import json
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, Optional, List
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
-import urllib.parse
+
 from bs4 import BeautifulSoup
 import logging
 import re
@@ -17,7 +16,7 @@ import time
 import imaplib
 import email
 from email.header import decode_header
-from difflib import get_close_matches, SequenceMatcher
+
 import pandas as pd
 import pytesseract
 from PIL import Image
@@ -26,16 +25,16 @@ import imaplib
 import msal
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
-import jwt
+
 import re
-from email.policy import default
+
 import logging
 import imaplib
 import re
 import msal
 from dotenv import load_dotenv
 import jwt
-from email.parser import BytesParser
+
 from email import message_from_bytes
 from email.header import decode_header
 from PIL import Image
@@ -492,6 +491,7 @@ class NowCertsAPI:
         # Si holder_list es None, evitar que el ciclo inicie
         if not holder_list:  
             print("El holder no se encuentra en ninguna de las bases de datos.")
+            
             return None
 
         # Inicializar holder_encontrado como None 
@@ -659,7 +659,7 @@ class NowCertsAPI:
 
 def obtener_nombre_cliente(email_body):
  
-    client=OpenAI(api_key="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",
+    client=OpenAI(api_key=os.getenv("api_key_open"),
                 base_url="https://openrouter.ai/api/v1")
 
 
@@ -685,7 +685,7 @@ def obtener_nombre_cliente(email_body):
 
 def obtener_nombre_holder(email_body):
  
-    client=OpenAI(api_key="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",
+    client=OpenAI(api_key=os.getenv("api_key_open"),
                 base_url="https://openrouter.ai/api/v1")
 
 
@@ -805,8 +805,8 @@ Emails: {email_body_dic['Emails']}
         
     nombre_holder = obtener_nombre_holder(email_body)
 
-    if nombre_holder == "HOLDER NO FOUND IN EMAIL":
-        print("❌ El holder no fue encontrado en el correo.")
+    if nombre_holder is None or nombre_holder == "HOLDER NOT FOUND IN EMAIL":
+        print("❌ El holder no fue encontrado en el correo o la respuesta fue None.")
         auth.move_email_to_folder(id_Email_leido, source_mailbox="INBOX", target_folder="CERTIFICADOS FALLIDOS")
         print("El correo se ha movido a la carpeta CERTIFICADOS FALLIDOS.")
         sys.exit()
@@ -936,7 +936,7 @@ Emails: {email_body_dic['Emails']}
         # Buscar al holder utilizando la función buscar_holder
         holder_encontrado = api.buscar_holder(parte)
 
-        if holder_encontrado == "HOLDER NO FOUND IN EMAIL":
+        if holder_encontrado is None or holder_encontrado == "HOLDER NO FOUND IN EMAIL":
             # Si no se encuentra el holder, mostrar un mensaje
             print(f"EL HOLDER {parte} NO FUE ENCONTRADO")
             auth.move_email_to_folder(id_Email_leido, source_mailbox="INBOX", target_folder="CERTIFICADOS FALLIDOS")        
