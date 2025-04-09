@@ -768,6 +768,7 @@ Emails: {email_body_dic['Emails']}
         print(email_body_str)
     else:
         print("No se encontraron correos que coincidan con las palabras clave.")
+        sys.exit()
 
    #todos los correos a los que se deben enviar los certificados
     ALL_Email = {email_body_dic['Emails']}
@@ -793,9 +794,11 @@ Emails: {email_body_dic['Emails']}
     elif nombre_cliente == "CLIENT NO FOUND IN EMAIL":
         print("❌ El cliente no fue encontrado en el correo.")
         auth.move_email_to_folder(id_Email_leido, source_mailbox="INBOX", target_folder="CERTIFICADOS FALLIDOS")
+        sys.exit()
     elif nombre_cliente == "SEVERAL CLIENTS REQUEST":
         print("⚠️ Se detectaron múltiples clientes en la solicitud. Saliendo...")
         auth.move_email_to_folder(id_Email_leido, source_mailbox="INBOX", target_folder="CERTIFICADOS FALLIDOS")
+        sys.exit()
     else:
         print(f"✅ Cliente identificado: {nombre_cliente}")
 
@@ -813,6 +816,7 @@ Emails: {email_body_dic['Emails']}
     elif "<tool_response>" in nombre_holder and nombre_holder.count("<tool_response>") > 3:
         print("⚠️ Respuesta inválida (tool_response detectado).")
         auth.move_email_to_folder(id_Email_leido, source_mailbox="INBOX", target_folder="CERTIFICADOS FALLIDOS")
+        sys.exit()
     else:
         print(f"✅ Holder identificado: {nombre_holder}")
 
